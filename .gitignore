@@ -1,0 +1,9 @@
+.env
+*.pkl
+*.pth
+*.npy
+__pycache__/
+*.pyc
+.DS_Store
+*.csv
+data/
