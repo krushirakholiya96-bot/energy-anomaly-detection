@@ -1,8 +1,8 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-from . import schemas, models, database
-from .predictor import AnomalyPredictor
-from .ai_explainer import AnomalyExplainer
+import schemas, models, database
+from predictor import AnomalyPredictor
+from ai_explainer import AnomalyExplainer
 from datetime import datetime
 
 app = FastAPI(title="Energy Anomaly Detection API", version="1.0")
