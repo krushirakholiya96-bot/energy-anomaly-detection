@@ -4,7 +4,7 @@ import os
 
 class AnomalyPredictor:
     def __init__(self):
-        base_path = os.path.join(os.path.dirname(__file__), '..', 'models')
+        base_path = os.path.join(os.path.dirname(__file__), 'models')
         self.model = joblib.load(os.path.join(base_path, 'supervised_model.pkl'))
         self.scaler = joblib.load(os.path.join(base_path, 'scaler.pkl'))
         self.feature_names = [
