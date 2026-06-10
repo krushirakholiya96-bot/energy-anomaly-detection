@@ -35,7 +35,12 @@ if page == "Live Prediction":
                 "temperature"  : temperature,
                 "thermocouple" : thermocouple,
                 "accelerometer": accelerometer
-            }, timeout=60).json()
+            }, timeout=60)
+            if res.status_code == 200:
+                res = res.json()
+            else:
+                st.error(f"API Error: {res.status_code} - {res.text}")
+                st.stop()
 
         if res["is_anomaly"]:
             st.error(f"🚨 ANOMALY DETECTED! Score: {res['anomaly_score']:.3f}")
