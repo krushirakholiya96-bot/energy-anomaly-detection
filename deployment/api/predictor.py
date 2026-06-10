@@ -12,13 +12,15 @@ class AnomalyPredictor:
         ]
 
     def predict(self, values: list) -> dict:
-        arr = np.array(values).reshape(1, -1)
+        # 6 values ko 30 timesteps mein repeat karo = 180 features
+        arr = np.array(values)
+        arr_repeated = np.tile(arr, 30).reshape(1, -1)  # (1, 180)
 
-        score = self.model.predict_proba(arr)[0][1]
+        score = self.model.predict_proba(arr_repeated)[0][1]
         is_anomaly = bool(score > 0.5)
 
         importances = self.model.feature_importances_
-        top_idx = np.argmax(importances)
+        top_idx = np.argmax(importances) % len(self.feature_names)
         top_sensor = self.feature_names[top_idx]
 
         return {
