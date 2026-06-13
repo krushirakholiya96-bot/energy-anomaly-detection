@@ -14,7 +14,7 @@ class AnomalyPredictor:
     def predict(self, values: list) -> dict:
         # 6 values ko 30 timesteps mein repeat karo = 180 features
         arr = np.array(values)
-        arr_repeated = np.tile(arr, 30).reshape(1, -1)  # (1, 180)
+        arr_repeated = np.tile(arr, 150).reshape(1, -1)  # (1, 180)
 
         score = self.model.predict_proba(arr_repeated)[0][1]
         is_anomaly = bool(score > 0.5)
