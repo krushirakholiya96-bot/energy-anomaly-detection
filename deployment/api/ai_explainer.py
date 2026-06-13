@@ -9,10 +9,7 @@ class AnomalyExplainer:
         )
 
     def explain(self, sensor_data: dict, anomaly_score: float, top_sensor: str) -> str:
-        if not sensor_data.get("is_anomaly", False):
-            return "System normal hai — koi action required nahi."
-
-        prompt = f"""Industrial pump mein anomaly detect hui hai.
+        prompt = f"""Industrial pump anomaly detected.
 Anomaly Score: {anomaly_score:.3f}
 Top Responsible Sensor: {top_sensor}
 Readings:
@@ -23,10 +20,10 @@ Readings:
 - Thermocouple: {sensor_data['thermocouple']} C
 - Accelerometer: {sensor_data['accelerometer']}
 
-Maintenance engineer ke liye 2-3 lines mein explain karo:
-1. Kya problem ho sakti hai?
-2. Kaunsa sensor check karna chahiye?
-3. Immediate action kya lena chahiye?"""
+In 2-3 lines explain for maintenance engineer:
+1. What could be the problem?
+2. Which sensor to check?
+3. What immediate action to take?"""
 
         resp = self.client.chat.completions.create(
             model      = "llama3-8b-8192",
