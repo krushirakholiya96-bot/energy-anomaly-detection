@@ -26,7 +26,7 @@ In 2-3 lines explain for maintenance engineer:
 3. What immediate action to take?"""
 
         resp = self.client.chat.completions.create(
-            model      = "llama3-8b-8192",
+            model      = "llama3-70b-8192",
             messages   = [{"role": "user", "content": prompt}],
             max_tokens = 150
         )
