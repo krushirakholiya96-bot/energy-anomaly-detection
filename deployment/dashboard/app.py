@@ -17,7 +17,7 @@ page = st.sidebar.radio("Navigation",
 
 # ── PAGE 1: LIVE PREDICTION ──────────────────────────────────────────────
 if page == "Live Prediction":
-    st.subheader("Sensor Values Enter Karo")
+    st.subheader(" Enter Sensor Values ")
     c1, c2, c3 = st.columns(3)
     current       = c1.number_input("Current (A)",   value=0.5)
     voltage       = c2.number_input("Voltage (V)",   value=220.0)
