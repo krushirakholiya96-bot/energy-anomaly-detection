@@ -4,7 +4,7 @@
 Industrial pump anomaly detection system using ML + AI.
 
 ## Live Demo
-- API: https://energy-anomaly-detection-u19f.onrender.com
+- API: https://energy-anomaly-detection-u19f.onrender.com/docs
 - Dashboard: https://energy-anomaly-detection-jywhyuymkgifcslpjw9ath.streamlit.app/
 
 ## Tech Stack
