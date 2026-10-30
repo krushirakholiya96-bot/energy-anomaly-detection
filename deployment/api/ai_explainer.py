@@ -1,11 +1,15 @@
 from openai import OpenAI
 import os
 
+MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
+FALLBACK_MODEL = "llama-3.3-70b-versatile"
+
+
 class AnomalyExplainer:
     def __init__(self):
         self.client = OpenAI(
-            api_key  = os.getenv("GROQ_API_KEY"),
-            base_url = "https://api.groq.com/openai/v1"
+            api_key=os.getenv("GROQ_API_KEY"),
+            base_url="https://api.groq.com/openai/v1",
         )
 
     def explain(self, sensor_data: dict, anomaly_score: float, top_sensor: str) -> str:
@@ -25,9 +29,18 @@ In 2-3 lines explain for maintenance engineer:
 2. Which sensor to check?
 3. What immediate action to take?"""
 
-        resp = self.client.chat.completions.create(
-            model      ="llama-3.3-70b-versatile",
-            messages   = [{"role": "user", "content": prompt}],
-            max_tokens = 150
-        )
-        return resp.choices[0].message.content
+        # Pehle MODEL try karo, fail ho to FALLBACK_MODEL, phir bhi fail ho to message
+        for model in (MODEL, FALLBACK_MODEL):
+            try:
+                resp = self.client.chat.completions.create(
+                    model=model,
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=150,
+                    timeout=20,
+                )
+                return resp.choices[0].message.content
+            except Exception as e:
+                print(f"AI explanation failed with model {model}: {e}")
+
+        return "AI explanation abhi available nahi hai."
+           
